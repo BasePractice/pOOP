@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.mifi.practice</groupId>
-    <artifactId>solid-oop</artifactId>
-    <version>2024.1</version>
+    <artifactId>pOOP</artifactId>
+    <version>2024.2</version>
     <packaging>pom</packaging>
-    <name>solid-oop</name>
+    <name>pOOP</name>
     <description>Объектно ориентированное программирование</description>
 
     <properties>
@@ -19,11 +19,10 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/BasePractice/solid-oop.git</connection>
-        <url>https://github.com/BasePractice/solid-oop</url>
-        <developerConnection>scm:git:https://github.com/BasePractice/solid-oop.git
-        </developerConnection>
-        <tag>2024.1</tag>
+        <connection>scm:git:https://github.com/BasePractice/pOOP.git</connection>
+        <url>https://github.com/BasePractice/pOOP</url>
+        <developerConnection>scm:git:https://github.com/BasePractice/pOOP.git</developerConnection>
+        <tag>2024.2</tag>
     </scm>
 
     <modules>

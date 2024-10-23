@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>ru.mifi.practice</groupId>
-        <artifactId>solid-oop</artifactId>
-        <version>2024.1</version>
+        <artifactId>pOOP</artifactId>
+        <version>2024.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>vol0</artifactId>
