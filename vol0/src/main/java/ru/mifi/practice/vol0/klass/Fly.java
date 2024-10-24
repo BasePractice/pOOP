@@ -1,7 +1,5 @@
 package ru.mifi.practice.vol0.klass;
 
-import java.util.Arrays;
-
 public class Fly {
     Wing leftWing;
     Wing rightWing;
@@ -11,6 +9,7 @@ public class Fly {
     Trunk trunk;
 
     public Fly() {
+        //Ignore
     }
 
     public Fly(Wing leftWing, Wing rightWing,
@@ -52,14 +51,7 @@ public class Fly {
 
     @Override
     public String toString() {
-        return "Fly{" +
-            "leftWing=" + leftWing +
-            ", rightWing=" + rightWing +
-            ", leftEye=" + leftEye +
-            ", rightEye=" + rightEye +
-            ", legs=" + Arrays.toString(legs) +
-            ", trunk=" + trunk +
-            '}';
+        return "Fly";
     }
 
     public static class Wing {

@@ -4,6 +4,8 @@ import ru.mifi.practice.val3.cont.Deserializer;
 import ru.mifi.practice.val3.cont.Http;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -21,8 +23,8 @@ public final class Jdk implements Http {
 
     @Override
     public <T> Optional<T> get(String url, Class<T> clazz) {
-        HttpRequest request = HttpRequest.newBuilder().build();
         try {
+            HttpRequest request = HttpRequest.newBuilder().uri(new URI(url)).build();
             HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             if (response.statusCode() == 200) {
@@ -30,7 +32,7 @@ public final class Jdk implements Http {
             } else {
                 System.out.println(response.body());
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException | InterruptedException | URISyntaxException ex) {
             ex.printStackTrace();
         }
         return Optional.empty();

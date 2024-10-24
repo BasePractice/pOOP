@@ -26,6 +26,9 @@
     </scm>
 
     <modules>
+        <module>vol0</module>
+        <module>vol1</module>
+        <module>vol2</module>
         <module>vol3</module>
         <module>vol4</module>
     </modules>
