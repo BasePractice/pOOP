@@ -1,4 +1,4 @@
-package ru.mifi.practice.val3.poly.module;
+package ru.mifi.practice.val4.poly.module;
 
 import dagger.Module;
 import dagger.Provides;

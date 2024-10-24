@@ -1,11 +1,11 @@
-package ru.mifi.practice.val3.poly;
+package ru.mifi.practice.val4.poly;
 
 import dagger.Component;
 import ru.mifi.practice.val3.cont.BusinessLogic;
-import ru.mifi.practice.val3.poly.module.HttpJdkModule;
-import ru.mifi.practice.val3.poly.module.JsonGsonModule;
-import ru.mifi.practice.val3.poly.module.LogicDefaultModule;
-import ru.mifi.practice.val3.poly.module.ServiceDefaultModule;
+import ru.mifi.practice.val4.poly.module.HttpJdkModule;
+import ru.mifi.practice.val4.poly.module.JsonGsonModule;
+import ru.mifi.practice.val4.poly.module.LogicDefaultModule;
+import ru.mifi.practice.val4.poly.module.ServiceDefaultModule;
 
 import javax.inject.Singleton;
 
