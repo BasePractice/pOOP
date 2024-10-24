@@ -1,0 +1,16 @@
+server:
+    port: 8050
+    undertow:
+        accesslog:
+            enabled: true
+spring:
+    application:
+        name: vol5
+    main:
+        banner-mode: off
+springdoc:
+    api-docs:
+        enabled: true
+        path: /api-docs
+    swagger-ui:
+        operations-sorter: method
