@@ -37,7 +37,7 @@ public final class Menu {
     }
 
     public static Context defaultContext(Runnable onExit) {
-        return new Context(Output.DEFAULT, Input.DEFAULT, new AtomicReference<>(), onExit);
+        return new Context(onExit);
     }
 
     public Menu addSub(String text, Consumer<Context> action) {
@@ -91,11 +91,23 @@ public final class Menu {
         }
     }
 
-    public record Context(Output output,
-                          Input input,
-                          AtomicReference<Authentication.Context> holder,
-                          Runnable onExit)
-        implements Output, Input {
+    public static final class Context implements Output, Input {
+        private final Output output;
+        private final Input input;
+        private final AtomicReference<Authentication.Context> holder;
+        private final Runnable onExit;
+
+        public Context(Output output, Input input, Runnable onExit) {
+            this.output = output;
+            this.input = input;
+            this.holder = new AtomicReference<>();
+            this.onExit = onExit;
+        }
+
+        private Context(Runnable onExit) {
+            this(Output.DEFAULT, Input.DEFAULT, onExit);
+        }
+
 
         @Override
         public void close() throws Exception {
@@ -144,7 +156,5 @@ public final class Menu {
         void clearContext() {
             holder.setRelease(null);
         }
-
-
     }
 }
