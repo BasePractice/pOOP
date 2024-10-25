@@ -1,7 +1,10 @@
 package ru.mifi.practice.vol6;
 
-import ru.mifi.practice.vol6.repository.UserRepository;
+import com.google.common.hash.Hashing;
+import ru.mifi.practice.vol6.model.User;
+import ru.mifi.practice.vol6.repository.Repository;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public interface Authentication extends Security.Hash {
@@ -9,20 +12,20 @@ public interface Authentication extends Security.Hash {
     Optional<Context> authenticate(String username, String password);
 
     interface Context {
-        static Context of(UserRepository.User user) {
+        static Context of(User user) {
             return new SimpleContext(user);
         }
 
-        UserRepository.User user();
+        User user();
     }
 
-    record SimpleContext(UserRepository.User user) implements Context {
+    record SimpleContext(User user) implements Context {
     }
 
     final class Default implements Authentication {
-        private final UserRepository repository;
+        private final Repository<User, String> repository;
 
-        public Default(UserRepository repository) {
+        public Default(Repository<User, String> repository) {
             this.repository = repository;
         }
 
@@ -35,7 +38,7 @@ public interface Authentication extends Security.Hash {
 
         @Override
         public String hash(String password) {
-            return password;
+            return Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
         }
     }
 }

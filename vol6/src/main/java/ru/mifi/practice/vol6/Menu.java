@@ -144,7 +144,7 @@ public final class Menu {
         }
 
         public String select(String text) {
-            output.println(text);
+            output.print(text);
             output.print("> ");
             return input.inputString();
         }

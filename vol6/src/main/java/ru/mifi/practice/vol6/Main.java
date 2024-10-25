@@ -1,13 +1,17 @@
 package ru.mifi.practice.vol6;
 
-import ru.mifi.practice.vol6.repository.UserRepository;
+import ru.mifi.practice.vol6.model.User;
+import ru.mifi.practice.vol6.repository.Repository;
+import ru.mifi.practice.vol6.repository.UserRepositoryInMemory;
+import ru.mifi.practice.vol6.storege.FileStorage;
+import ru.mifi.practice.vol6.storege.Storage;
 
 import java.util.Optional;
 
 public abstract class Main {
     public static void main(String[] args) throws Exception {
         Menu root = Menu.root();
-        Storage storage = new Storage.Empty();
+        Storage storage = new FileStorage();
         Runnable onExit = prepare(root, storage);
         try (Menu.Context context = Menu.defaultContext(onExit)) {
             root.select(context);
@@ -15,7 +19,7 @@ public abstract class Main {
     }
 
     private static Runnable prepare(Menu root, Storage storage) {
-        UserRepository repository = new UserRepository.Memory();
+        Repository.Mutant<User, String> repository = storage.read(new UserRepositoryInMemory());
         Authentication authentication = new Authentication.Default(repository);
 
         root.addSub("Аутентификация", context -> {
@@ -25,29 +29,28 @@ public abstract class Main {
             sc.ifPresent(context::putContext);
             if (sc.isEmpty()) {
                 context.clearContext();
-                context.error("Не удалось авторизоваться под пользователем '%s'", login);
+                context.errorln("Не удалось авторизоваться под пользователем '%s'", login);
             }
         });
         root.addSub("Регистрация", context -> {
             String login = context.select("Введите логин");
-            Optional<UserRepository.User> search = repository.search(login);
+            Optional<User> search = repository.search(login);
             if (search.isEmpty()) {
                 String password = context.select("Введите пароль");
                 String confirm = context.select("Подтвердите пароль");
                 if (password.equals(confirm)) {
                     context.clearContext();
                     password = authentication.hash(password);
-                    UserRepository.User user = new UserRepository.User(login, password);
-                    repository.register(user);
+                    User user = new User(login, password);
+                    repository.add(user);
                     context.putContext(Authentication.Context.of(user));
                 } else {
-                    context.error("Пароль не совпадает");
+                    context.errorln("Пароль не совпадает");
                 }
             } else {
-                context.error("Пользователь с именем '%s' уже существует", login);
+                context.errorln("Пользователь с именем '%s' уже существует", login);
             }
         });
-        storage.read(repository);
-        return () -> repository.store(storage);
+        return () -> storage.write(repository);
     }
 }
