@@ -32,6 +32,7 @@
         <module>vol3</module>
         <module>vol4</module>
         <module>vol5</module>
+        <module>vol6</module>
     </modules>
 
     <dependencyManagement>

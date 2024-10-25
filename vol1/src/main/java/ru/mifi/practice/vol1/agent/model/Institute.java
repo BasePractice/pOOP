@@ -110,9 +110,6 @@ public final class Institute {
 
         @Override
         public Optional<Transport.Replay> call(Transport.Message message) {
-            if (message instanceof Messages msg) {
-                return Optional.empty();
-            }
             return Optional.empty();
         }
 
