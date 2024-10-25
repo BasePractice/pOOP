@@ -1,7 +1,9 @@
 package ru.mifi.practice.vol6.repository;
 
+import com.google.common.reflect.TypeToken;
 import ru.mifi.practice.vol6.model.User;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +11,18 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class UserRepositoryInMemory implements Repository.Mutant<User, String> {
+    private static final Type LIST = new TypeToken<ArrayList<User>>() {
+    }.getType();
     private final Map<String, User> users = new HashMap<>();
 
     @Override
     public Optional<User> search(String id) {
         return Optional.ofNullable(users.get(id));
+    }
+
+    @Override
+    public Type listType() {
+        return LIST;
     }
 
     @Override

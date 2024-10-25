@@ -1,5 +1,6 @@
 package ru.mifi.practice.vol6;
 
+import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
@@ -12,6 +13,7 @@ public interface Authentication extends Security.Hash {
     Optional<Context> authenticate(String username, String password);
 
     interface Context {
+
         static Context of(User user) {
             return new SimpleContext(user);
         }
@@ -23,10 +25,12 @@ public interface Authentication extends Security.Hash {
     }
 
     final class Default implements Authentication {
+        private final HashFunction hf;
         private final Repository<User, String> repository;
 
         public Default(Repository<User, String> repository) {
             this.repository = repository;
+            this.hf = Hashing.sha256();
         }
 
         @Override
@@ -38,7 +42,7 @@ public interface Authentication extends Security.Hash {
 
         @Override
         public String hash(String password) {
-            return Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+            return hf.hashString(password, StandardCharsets.UTF_8).toString();
         }
     }
 }

@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 public record User(@SerializedName("username") String username,
                    @SerializedName("password") String secret) implements Serializable {
-
     public boolean equalsSecret(String password, Security.Hash hash) {
         return secret.equals(hash.hash(password));
     }

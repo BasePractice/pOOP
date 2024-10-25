@@ -33,7 +33,7 @@ public final class Menu {
     }
 
     private static void printLine(Output output) {
-        output.println("----------------");
+        output.println("---------------------");
     }
 
     public static Context defaultContext(Runnable onExit) {
@@ -41,7 +41,10 @@ public final class Menu {
     }
 
     public Menu addSub(String text, Consumer<Context> action) {
-        Menu menu = new Menu(text, this, action);
+        return addSub(new Menu(text, this, action));
+    }
+
+    public Menu addSub(Menu menu) {
         subMenus.add(menu);
         return menu;
     }
@@ -57,6 +60,7 @@ public final class Menu {
     private void selectedSubMenu(Context context) {
         boolean select = true;
         while (select) {
+            printLine(context);
             context.print();
             printLine(context);
             for (int i = 0; i < subMenus.size(); i++) {
@@ -135,7 +139,7 @@ public final class Menu {
             if (context != null) {
                 authenticated = context.user().username();
             }
-            output.println("%s", authenticated);
+            output.println("Auth: %s", authenticated);
         }
 
         @Override
@@ -149,12 +153,16 @@ public final class Menu {
             return input.inputString();
         }
 
-        void putContext(Authentication.Context context) {
+        public void putContext(Authentication.Context context) {
             holder.compareAndExchange(null, context);
         }
 
-        void clearContext() {
+        public void clearContext() {
             holder.setRelease(null);
+        }
+
+        public Optional<Authentication.Context> authorized() {
+            return Optional.ofNullable(holder.get());
         }
     }
 }
