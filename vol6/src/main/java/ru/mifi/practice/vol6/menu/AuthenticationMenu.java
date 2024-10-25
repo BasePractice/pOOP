@@ -1,7 +1,6 @@
 package ru.mifi.practice.vol6.menu;
 
 import ru.mifi.practice.vol6.Authentication;
-import ru.mifi.practice.vol6.Menu;
 
 import java.util.Optional;
 
@@ -14,7 +13,7 @@ public final class AuthenticationMenu extends AbstractMenu {
     }
 
     @Override
-    public void accept(Menu.Context context) {
+    public void accept(Context context) {
         String login = context.select("Введите логин");
         String password = context.select("Введите пароль");
         Optional<Authentication.Context> sc = authentication.authenticate(login, password);

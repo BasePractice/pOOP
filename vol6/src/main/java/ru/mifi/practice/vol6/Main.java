@@ -1,20 +1,21 @@
 package ru.mifi.practice.vol6;
 
 import ru.mifi.practice.vol6.menu.AuthenticationMenu;
+import ru.mifi.practice.vol6.menu.Context;
 import ru.mifi.practice.vol6.menu.DeleteRegistrationMenu;
+import ru.mifi.practice.vol6.menu.Menu;
 import ru.mifi.practice.vol6.menu.RegistrationMenu;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
 import ru.mifi.practice.vol6.repository.UserRepositoryInMemory;
-import ru.mifi.practice.vol6.storege.FileStorage;
 import ru.mifi.practice.vol6.storege.Storage;
 
 public abstract class Main {
     public static void main(String[] args) throws Exception {
         Menu root = Menu.root();
-        Storage storage = new FileStorage();
+        Storage storage = Storage.file();
         Runnable onExit = prepare(root, storage);
-        try (Menu.Context context = Menu.defaultContext(onExit)) {
+        try (Context context = Menu.defaultContext(onExit)) {
             root.select(context);
         }
     }

@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public final class FileStorage implements Storage {
+final class FileStorage implements Storage {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Path users = Path.of("users.json");
 

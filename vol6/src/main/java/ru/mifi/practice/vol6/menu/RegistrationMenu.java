@@ -1,7 +1,6 @@
 package ru.mifi.practice.vol6.menu;
 
 import ru.mifi.practice.vol6.Authentication;
-import ru.mifi.practice.vol6.Menu;
 import ru.mifi.practice.vol6.Security;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
@@ -19,7 +18,7 @@ public final class RegistrationMenu extends AbstractMenu {
     }
 
     @Override
-    public void accept(Menu.Context context) {
+    public void accept(Context context) {
         String login = context.select("Введите логин");
         Optional<User> search = repository.search(login);
         if (search.isEmpty()) {
