@@ -24,7 +24,7 @@ public abstract class Main {
 
     private static Runnable prepare(Menu root, Storage storage) {
         Repository.Mutant<User, String> repository = storage.read(new UserRepositoryInMemory());
-        Security.Hash hash = Security.create();
+        Security.Hash hash = Security.createHash();
         Authentication authentication = Authentication.create(repository, hash);
         new AuthenticationMenu(authentication).register(root);
         new RegistrationMenu(repository, hash).register(root);
