@@ -1,14 +1,15 @@
-package ru.mifi.practice.vol6;
+package ru.mifi.practice.vol6.security;
 
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-public interface Authentication extends Security.Hash {
+public interface Authentication {
+
+    static Authentication create(Repository<User, String> repository, Security.Hash hash) {
+        return new Default(repository, hash);
+    }
 
     Optional<Context> authenticate(String username, String password);
 
@@ -25,24 +26,19 @@ public interface Authentication extends Security.Hash {
     }
 
     final class Default implements Authentication {
-        private final HashFunction hf;
+        private final Security.Hash hash;
         private final Repository<User, String> repository;
 
-        public Default(Repository<User, String> repository) {
+        private Default(Repository<User, String> repository, Security.Hash hash) {
             this.repository = repository;
-            this.hf = Hashing.sha256();
+            this.hash = hash;
         }
 
         @Override
         public Optional<Context> authenticate(String username, String password) {
             return repository.search(username)
-                .filter(user -> user.equalsSecret(password, this))
+                .filter(user -> user.equalsSecret(password, hash))
                 .map(Context::of);
-        }
-
-        @Override
-        public String hash(String password) {
-            return hf.hashString(password, StandardCharsets.UTF_8).toString();
         }
     }
 }

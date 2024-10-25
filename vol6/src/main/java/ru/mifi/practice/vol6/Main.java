@@ -8,6 +8,8 @@ import ru.mifi.practice.vol6.menu.RegistrationMenu;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
 import ru.mifi.practice.vol6.repository.UserRepositoryInMemory;
+import ru.mifi.practice.vol6.security.Authentication;
+import ru.mifi.practice.vol6.security.Security;
 import ru.mifi.practice.vol6.storege.Storage;
 
 public abstract class Main {
@@ -22,9 +24,10 @@ public abstract class Main {
 
     private static Runnable prepare(Menu root, Storage storage) {
         Repository.Mutant<User, String> repository = storage.read(new UserRepositoryInMemory());
-        Authentication authentication = new Authentication.Default(repository);
+        Security.Hash hash = Security.create();
+        Authentication authentication = Authentication.create(repository, hash);
         new AuthenticationMenu(authentication).register(root);
-        new RegistrationMenu(repository, authentication).register(root);
+        new RegistrationMenu(repository, hash).register(root);
         new DeleteRegistrationMenu(repository).register(root);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             storage.write(repository);

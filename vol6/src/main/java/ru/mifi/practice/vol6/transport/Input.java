@@ -1,4 +1,4 @@
-package ru.mifi.practice.vol6;
+package ru.mifi.practice.vol6.transport;
 
 import java.util.Optional;
 import java.util.Scanner;

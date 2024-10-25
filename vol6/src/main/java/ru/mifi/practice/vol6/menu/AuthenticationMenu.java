@@ -1,6 +1,6 @@
 package ru.mifi.practice.vol6.menu;
 
-import ru.mifi.practice.vol6.Authentication;
+import ru.mifi.practice.vol6.security.Authentication;
 
 import java.util.Optional;
 

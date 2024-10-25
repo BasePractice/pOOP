@@ -1,8 +1,8 @@
 package ru.mifi.practice.vol6.menu;
 
-import ru.mifi.practice.vol6.Authentication;
-import ru.mifi.practice.vol6.Input;
-import ru.mifi.practice.vol6.Output;
+import ru.mifi.practice.vol6.security.Authentication;
+import ru.mifi.practice.vol6.transport.Input;
+import ru.mifi.practice.vol6.transport.Output;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;

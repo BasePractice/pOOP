@@ -1,6 +1,6 @@
 package ru.mifi.practice.vol6.menu;
 
-import ru.mifi.practice.vol6.Output;
+import ru.mifi.practice.vol6.transport.Output;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package ru.mifi.practice.vol6.menu;
 
-import ru.mifi.practice.vol6.Authentication;
-import ru.mifi.practice.vol6.Security;
+import ru.mifi.practice.vol6.security.Authentication;
+import ru.mifi.practice.vol6.security.Security;
 import ru.mifi.practice.vol6.model.User;
 import ru.mifi.practice.vol6.repository.Repository;
 

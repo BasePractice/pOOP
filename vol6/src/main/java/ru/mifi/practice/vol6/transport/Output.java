@@ -1,4 +1,4 @@
-package ru.mifi.practice.vol6;
+package ru.mifi.practice.vol6.transport;
 
 import java.io.PrintStream;
 
@@ -16,7 +16,6 @@ public interface Output {
     default void errorln(String format, Object... args) {
         error(format + "%n", args);
     }
-
 
     final class Standard implements Output {
         private final PrintStream output;
