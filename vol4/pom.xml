@@ -13,7 +13,7 @@
     <description>Модуль №4</description>
 
     <properties>
-        <dagger.version>2.16</dagger.version>
+        <dagger.version>2.52</dagger.version>
     </properties>
 
     <dependencies>
