@@ -6,10 +6,9 @@ import org.bson.BsonBinaryReader;
 import org.bson.BsonBinaryWriter;
 import org.bson.BsonReader;
 import org.bson.BsonType;
-import org.bson.io.BasicOutputBuffer;
 import ru.mifi.practice.vol8.streaming.Bson;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 @RequiredArgsConstructor
 public final class User {
@@ -18,8 +17,8 @@ public final class User {
 
     public static void main(String[] args) {
         User user = new User("bob", "password");
-        BasicOutputBuffer output = new BasicOutputBuffer();
-        try (AbstractBsonWriter writer = new BsonBinaryWriter(output)) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try (var bsonOutput = Bson.newOutput(output); AbstractBsonWriter writer = new BsonBinaryWriter(bsonOutput)) {
             writer.writeStartDocument();
             writer.writeString("name", user.name);
             writer.writeString("password", user.password);
@@ -27,8 +26,7 @@ public final class User {
             writer.flush();
         }
         byte[] bytes = output.toByteArray();
-        try (BsonReader reader = new BsonBinaryReader(new Bson.BsonInputStream(
-            new ByteArrayInputStream(bytes)))) {
+        try (BsonReader reader = new BsonBinaryReader(Bson.newInput(bytes))) {
             boolean reading = true;
             while (reading) {
                 BsonType type = reader.readBsonType();
