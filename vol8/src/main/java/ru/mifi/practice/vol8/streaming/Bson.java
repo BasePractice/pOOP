@@ -14,6 +14,7 @@ import static java.lang.String.format;
 
 public final class Bson {
     public static final class BsonInputStream implements BsonInput {
+        private static final int READ_LIMIT = 4096;
         private static final String[] ONE_BYTE_ASCII_STRINGS = new String[Byte.MAX_VALUE + 1];
 
         static {
@@ -122,7 +123,7 @@ public final class Bson {
         @Override
         public String readCString() {
             int mark = getPosition();
-            stream.mark(1024);
+            stream.mark(READ_LIMIT);
             skipCString();
             int size = getPosition();
             stream.reset();
@@ -182,11 +183,12 @@ public final class Bson {
 
     private static final class PosBufferedInputStream extends BufferedInputStream {
 
-        public PosBufferedInputStream(InputStream in) {
+        private PosBufferedInputStream(InputStream in) {
             super(in);
         }
 
-        public int getPosition() {
+        @SuppressWarnings("PMD.UnusedPrivateMethod")
+        private int getPosition() {
             return pos;
         }
     }

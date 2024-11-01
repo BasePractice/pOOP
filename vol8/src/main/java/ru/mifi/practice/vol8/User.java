@@ -29,11 +29,15 @@ public final class User {
         byte[] bytes = output.toByteArray();
         try (BsonReader reader = new BsonBinaryReader(new Bson.BsonInputStream(
             new ByteArrayInputStream(bytes)))) {
-            reader.readStartDocument();
             boolean reading = true;
             while (reading) {
                 BsonType type = reader.readBsonType();
                 switch (type) {
+                    case DOCUMENT: {
+                        reader.readStartDocument();
+                        System.out.println("Start document");
+                        break;
+                    }
                     case END_OF_DOCUMENT: {
                         System.out.println("End of document");
                         reading = false;
