@@ -16,10 +16,10 @@ public final class AuthenticationMenu extends AbstractMenu {
     public void accept(Context context) {
         String login = context.select("Введите логин");
         String password = context.select("Введите пароль");
-        Optional<Authentication.Context> sc = authentication.authenticate(login, password);
-        sc.ifPresent(context::putContext);
-        if (sc.isEmpty()) {
-            context.clearContext();
+        Optional<Authentication.Session> session = authentication.authenticate(login, password);
+        session.ifPresent(context::putSession);
+        if (session.isEmpty()) {
+            context.clearSession();
             context.errorln("Не удалось авторизоваться под пользователем '%s'", login);
         }
     }

@@ -48,4 +48,14 @@ public final class User {
             return new User(name, password);
         }
     }
+
+    public static void main(String[] args) {
+        User user = User.builder()
+            .withName("Name1")
+            .withPassword("Password1")
+            .build();
+        user = user.toBuilder()
+            .withName("Name2")
+            .build();
+    }
 }

@@ -11,18 +11,18 @@ public interface Authentication {
         return new Default(repository, hash);
     }
 
-    Optional<Context> authenticate(String username, String password);
+    Optional<Session> authenticate(String username, String password);
 
-    interface Context {
+    interface Session {
 
-        static Context of(User user) {
-            return new SimpleContext(user);
+        static Session of(User user) {
+            return new SimpleSession(user);
         }
 
         User user();
     }
 
-    record SimpleContext(User user) implements Context {
+    record SimpleSession(User user) implements Session {
     }
 
     final class Default implements Authentication {
@@ -35,10 +35,10 @@ public interface Authentication {
         }
 
         @Override
-        public Optional<Context> authenticate(String username, String password) {
+        public Optional<Session> authenticate(String username, String password) {
             return repository.search(username)
                 .filter(user -> user.equalsSecret(password, hash))
-                .map(Context::of);
+                .map(Session::of);
         }
     }
 }

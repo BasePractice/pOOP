@@ -9,7 +9,7 @@ public final class Adapter implements Int2 {
     }
 
     @Override
-    public String getProcess() {
+    public String getName() {
         return origin.getName();
     }
 }

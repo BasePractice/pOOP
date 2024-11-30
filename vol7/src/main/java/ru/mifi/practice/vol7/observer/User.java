@@ -22,6 +22,5 @@ public final class User extends Observable {
         User user = new User("user");
         user.addObserver(new PrintObserver());
         user.setPassword("password");
-
     }
 }

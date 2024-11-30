@@ -4,11 +4,11 @@ import java.util.AbstractList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Decorator<T> extends AbstractList<T> implements List<T> {
+public class FilteredList<T> extends AbstractList<T> implements List<T> {
     private final List<T> decorated;
     private final Predicate<T> predicate;
 
-    public Decorator(List<T> decorated, Predicate<T> predicate) {
+    public FilteredList(List<T> decorated, Predicate<T> predicate) {
         this.decorated = decorated;
         this.predicate = predicate;
     }

@@ -10,13 +10,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class Context implements Output, Input {
     private final Output output;
     private final Input input;
-    private final AtomicReference<Authentication.Context> holder;
+    private final AtomicReference<Authentication.Session> session;
     private final Runnable onExit;
 
     public Context(Output output, Input input, Runnable onExit) {
         this.output = output;
         this.input = input;
-        this.holder = new AtomicReference<>();
+        this.session = new AtomicReference<>();
         this.onExit = onExit;
     }
 
@@ -47,9 +47,9 @@ public final class Context implements Output, Input {
 
     public void print() {
         String authenticated = "не авторизован";
-        Authentication.Context context = holder.get();
-        if (context != null) {
-            authenticated = context.user().username();
+        Authentication.Session session = this.session.get();
+        if (session != null) {
+            authenticated = session.user().username();
         }
         output.println("Auth: %s", authenticated);
     }
@@ -65,16 +65,16 @@ public final class Context implements Output, Input {
         return input.inputString();
     }
 
-    public void putContext(Authentication.Context context) {
-        holder.compareAndExchange(null, context);
+    public void putSession(Authentication.Session session) {
+        this.session.compareAndExchange(null, session);
     }
 
-    public void clearContext() {
-        holder.setRelease(null);
+    public void clearSession() {
+        session.setRelease(null);
     }
 
-    public Optional<Authentication.Context> authorized() {
-        return Optional.ofNullable(holder.get());
+    public Optional<Authentication.Session> authorized() {
+        return Optional.ofNullable(session.get());
     }
 
     public void exit() {

@@ -12,12 +12,4 @@ public interface Repository<T, I> {
 
     Type listType();
 
-    interface Mutant<T, I> extends Repository<T, I> {
-
-        void add(T item);
-
-        void delete(I key);
-
-        void addAll(List<T> items);
-    }
 }

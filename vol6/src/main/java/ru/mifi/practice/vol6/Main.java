@@ -6,7 +6,7 @@ import ru.mifi.practice.vol6.menu.DeleteRegistrationMenu;
 import ru.mifi.practice.vol6.menu.Menu;
 import ru.mifi.practice.vol6.menu.RegistrationMenu;
 import ru.mifi.practice.vol6.model.User;
-import ru.mifi.practice.vol6.repository.Repository;
+import ru.mifi.practice.vol6.repository.RepositoryMutant;
 import ru.mifi.practice.vol6.repository.UserRepositoryInMemory;
 import ru.mifi.practice.vol6.security.Authentication;
 import ru.mifi.practice.vol6.security.Security;
@@ -23,7 +23,7 @@ public abstract class Main {
     }
 
     private static Runnable prepare(Menu root, Storage storage) {
-        Repository.Mutant<User, String> repository = storage.read(new UserRepositoryInMemory());
+        RepositoryMutant<User, String> repository = storage.read(new UserRepositoryInMemory());
         Security.Hash hash = Security.createHash();
         Authentication authentication = Authentication.create(repository, hash);
         new AuthenticationMenu(authentication).register(root);

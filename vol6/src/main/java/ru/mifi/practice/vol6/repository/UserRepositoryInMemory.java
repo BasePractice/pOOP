@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public final class UserRepositoryInMemory implements Repository.Mutant<User, String> {
+public final class UserRepositoryInMemory implements RepositoryMutant<User, String> {
     private static final Type LIST = new TypeToken<ArrayList<User>>() {
     }.getType();
     private final Map<String, User> users = new HashMap<>();

@@ -2,6 +2,7 @@ package ru.mifi.practice.vol6.storege;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.mifi.practice.vol6.repository.RepositoryMutant;
 import ru.mifi.practice.vol6.repository.Repository;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ final class FileStorage implements Storage {
 
     @SuppressWarnings("PMD.EmptyCatchBlock")
     @Override
-    public <T> Repository.Mutant<T, String> read(Repository.Mutant<T, String> repository) {
+    public <T> RepositoryMutant<T, String> read(RepositoryMutant<T, String> repository) {
         try {
             List<T> list = gson.fromJson(Files.readString(users, StandardCharsets.UTF_8), repository.listType());
             repository.addAll(list);
