@@ -34,6 +34,7 @@
         <module>vol5</module>
         <module>vol6</module>
         <module>vol7</module>
+        <module>vol8</module>
     </modules>
 
     <dependencyManagement>
@@ -111,7 +112,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>10.18.2</version>
+                        <version>10.19.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
